@@ -1,0 +1,44 @@
+/**
+ * JavaCC template file created by SF JavaCC plugin 1.5.28+ wizard for JavaCC 1.5.0+
+ */options{  static = true;}PARSER_BEGIN(TestParserSQLITE)package testParser;
+
+public class TestParserSQLITE{  }PARSER_END(TestParserSQLITE)SKIP :{  " "| "\r"| "\t"| "\n"}TOKEN : /*  */{	< SELECT : "select" >
+  | < SELECT : "SELECT" >
+  | < FROM : "FROM" >
+  | < FROM : "from" >
+  | < WHERE : "where" >
+  | < WHERE : "WHERE" >}TOKEN :{    < ASTERISK : "*">    
+  | < IDENTIFIER: ["a"-"z","A"-"Z"] (["a"-"z","A"-"Z","0"-"9","_"])* >
+  | < NUMBER  : ["0"-"9"] >
+    }
+
+TOKEN :
+{
+	< SEMICOLON : ";" >
+ |  <comma : "," >
+ 
+}
+
+int start() :
+{ }
+{
+  < SELECT > projection() < FROM > source() < SEMICOLON > 
+  {    return 0;
+  }
+ | < SEMICOLON >
+ {	return 1;
+ }}
+
+void projection() :
+{ }
+{  < ASTERISK >
+}
+
+void source() :
+{}
+{	< IDENTIFIER >
+}
+void condition() :
+{}
+{ < IDENTIFIER > 
+}
